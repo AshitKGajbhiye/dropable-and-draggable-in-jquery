@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Jquery example</title>
+	<style type="text/css">
+		#droppable {
+			border-style: solid;
+			width: 500px;
+			height: 300px;
+		}
+		.highlight {
+			background-color: yellow;
+		}
+	</style>
+</head>
+<script src="js/jquery-2.2.3.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<body>
+
+<div id="droppable"><p>Drop here!!</p></div>
+<span id="msg"></span>
+<img src="images/img1.jpg" id="img1" alt="img1" name="img1" class="img" />
+<img src="images/img2.jpg" id="img2" alt="img2" name="img2" class="img" />
+<img src="images/img3.jpg" id="img3" alt="img3" name="img3" class="img" />
+
+<script type="text/javascript">
+$(function(){
+	$("#img1").draggable();
+	$("#img2").draggable();
+	$("#img3").draggable();
+		 
+  $("#droppable").droppable({
+    // Adds the class highlight to the droppable
+    activeClass: "highlight",
+ 
+    // Adds class for when element is hovered
+    hoverClass: "hoverDroppable",
+ 
+    // Function to call when element is dropped
+    drop: function(event, ui){
+ 
+      // Apply an effect when an element is dropped
+      // clip, explode, fade, puff,
+      // pulsate, scale, shake, slide,
+      ui.helper.hide("fade");
+ 
+      // Get the alt for the itm dropped
+      var itemAlt = $(ui.draggable).attr("alt");
+ 
+      // Display the item dropped
+      alert("Item added : " + itemAlt);
+    },
+ 
+    // Define class of elements that can be dropped
+    accept: ".img",
+ 
+    // Can elements currently be dropped on it
+    disabled: false,
+ 
+    // Add an element when droppable items starts to drag
+    activate: function(event, ui){
+ 
+      $("#cartMsg").remove();
+      $(this).append("<span id='cartMsg'>Drop Toy Here</span>");
+    },
+ 
+    // Called when an item isn't dropped in the dropzone
+    deactivate: function(event, ui){
+ 
+      $("#cartMsg").remove();
+      $(this).append("<span id='cartMsg'>You know you want it</span>");
+    },
+ 
+    // Called when draggable is over droppable
+    over: function(event, ui){
+ 
+      $("#cartMsg").remove();
+      $(this).append("<span id='cartMsg'>Drop It!!!</span>");
+    },
+ 
+    // Called when item leaves dropzone
+    out: function(event, ui){
+ 
+      $("#cartMsg").remove();
+      $(this).append("<span id='cartMsg'>NOOOOOO!!!</span>");
+    }
+  });
+});
+</script>
+
+</body>
+
+</html>
